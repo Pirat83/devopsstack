@@ -1,0 +1,9 @@
+[submodule "devopsstack-sonar"]
+	path = devopsstack-sonar
+	url = https://github.com/Pirat83/devopsstack-sonar.git
+[submodule "devopsstack-nexus"]
+	path = devopsstack-nexus
+	url = https://github.com/Pirat83/devopsstack-nexus.git
+[submodule "devopsstack-jenkins"]
+	path = devopsstack-jenkins
+	url = https://github.com/Pirat83/devopsstack-jenkins.git
