@@ -48,6 +48,37 @@ services:
     volumes:
       - ./devopsstack-nexus/nexus-data:/sonatype-work
 
+  jira:
+    build: ./devopsstack-jira
+    ports:
+      - '80:8080'
+    links:
+      - jira-db
+    environment:
+      - JIRA_DATABASE_URL=postgresql://jira@jira-db:5432/jira
+      - JIRA_DB_PASSWORD=jira
+      - CATALINA_OPTS= -Xms256m -Xmx1g
+    volumes:
+      - jira-data:/var/atlassian/jira
+#      - ./devopsstack-jira/var/atlassian/jira:/var/atlassian/jira
+
+  jira-db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=jira
+      - POSTGRES_PASSWORD=jira
+      - POSTGRES_DB=jira
+      - POSTGRES_ENCODING=UNICODE
+      - POSTGRES_COLLATE=C
+      - POSTGRES_COLLATE_TYPE=C
+    volumes:
+      - jira-db-data:/var/lib/postgresql/data
+#      - ./devopsstack-jira/var/lib/postgresql:/var/lib/postgresql
+
 volumes:
   sonar-db-data:
+    external: false
+  jira-data:
+    external: false
+  jira-db-data:
     external: false
