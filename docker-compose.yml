@@ -33,6 +33,10 @@ services:
     environment:
       - POSTGRES_USER=sonar
       - POSTGRES_PASSWORD=sonar
+      - POSTGRES_DB=sonar
+      - POSTGRES_ENCODING=UNICODE
+      - POSTGRES_COLLATE=C
+      - POSTGRES_COLLATE_TYPE=C
     volumes:
       - ./devopsstack-sonar/var/lib/postgresql:/var/lib/postgresql
 
