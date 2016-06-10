@@ -73,7 +73,7 @@ services:
       - POSTGRES_COLLATE_TYPE=C
     volumes:
       - jira-db-data:/var/lib/postgresql/data
-#      - ./devopsstack-jira/var/lib/postgresql:/var/lib/postgresql
+#      - ./devopsstack-jira/var/lib/postgresql/data:/var/lib/postgresql/data
 
 volumes:
   sonar-db-data:
