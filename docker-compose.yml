@@ -29,7 +29,7 @@ services:
       - ./devopsstack-sonar/plugins:/opt/sonarqube/extensions/plugins
 
   sonar-db:
-    image: postgres
+    image: blacklabelops/postgres
     environment:
       - POSTGRES_USER=sonar
       - POSTGRES_PASSWORD=sonar
@@ -63,7 +63,7 @@ services:
 #      - ./devopsstack-jira/var/atlassian/jira:/var/atlassian/jira
 
   jira-db:
-    image: postgres
+    image: blacklabelops/postgres
     environment:
       - POSTGRES_USER=jira
       - POSTGRES_PASSWORD=jira
