@@ -10,3 +10,6 @@
 [submodule "devopsstack-jira"]
 	path = devopsstack-jira
 	url = https://github.com/Pirat83/devopsstack-jira.git
+[submodule "devopsstack-rproxy"]
+	path = devopsstack-rproxy
+	url = https://github.com/Pirat83/devopsstack-rproxy.git
