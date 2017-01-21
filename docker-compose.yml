@@ -10,12 +10,9 @@ services:
       - jenkins-master
       - sonar
       - nexus
-    volumes:
-      - ./devopsstack-rproxy/usr/local/apache2/conf:/usr/local/apache2/conf
   jenkins-master:
     build: ./devopsstack-jenkins
     ports:
-      - "8080:8080"
       - "50000:50000"
     extra_hosts:
       - "docker:192.168.99.100"
@@ -31,8 +28,6 @@ services:
 
   sonar:
     build: ./devopsstack-sonar
-    ports:
-      - "9000:9000"
     links:
       - sonar-db
     environment:
@@ -58,15 +53,11 @@ services:
 
   nexus:
     build: ./devopsstack-nexus
-    ports:
-      - "8081:8081"
     volumes:
       - ./devopsstack-nexus/nexus-data:/sonatype-work
 
   jira:
     build: ./devopsstack-jira
-    ports:
-      - '80:8080'
     links:
       - jira-db
     environment:
