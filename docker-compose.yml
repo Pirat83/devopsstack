@@ -24,6 +24,7 @@ services:
       - JAVA_OPTS="-Djava.awt.headless=true"
       - DOCKER_HOST=tcp://192.168.99.100:2376
       - DOCKER_TLS_VERIFY=1
+      - DOCKER_CERT_PATH=/var/jenkins_home/.docker
     volumes:
       - jenkins-data:/var/jenkins_home
 
