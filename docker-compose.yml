@@ -53,6 +53,8 @@ services:
 
   nexus:
     build: ./devopsstack-nexus
+    environment:
+      - NEXUS_CONTEXT=nexus
     volumes:
       - nexus-data:/sonatype-work
 
