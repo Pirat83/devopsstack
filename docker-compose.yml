@@ -1,15 +1,16 @@
 version: '2'
-services: 
+services:
   rproxy:
-    build: ./devopsstack-rproxy
+    image: jwilder/nginx-proxy
     ports:
       - "80:80"
-      - "443:443"
     links:
       - jira
       - jenkins-master
       - sonar
       - nexus
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
 
   jenkins-master:
     build: ./devopsstack-jenkins
@@ -21,6 +22,8 @@ services:
       - sonar
       - nexus
     environment:
+      - VIRTUAL_HOST=jenkins.localhost,jenkins.blue-sharp.de
+      - VIRTUAL_PORT=8080
       - JAVA_OPTS="-Djava.awt.headless=true"
       - DOCKER_HOST=tcp://192.168.99.100:2376
       - DOCKER_TLS_VERIFY=1
@@ -33,6 +36,7 @@ services:
     links:
       - sonar-db
     environment:
+      - VIRTUAL_HOST=sonar.localhost,sonar.blue-sharp.de
       - SONARQUBE_JDBC_URL=jdbc:postgresql://sonar-db:5432/sonar
     entrypoint:
       - ./bin/run.sh
@@ -54,6 +58,7 @@ services:
   nexus:
     build: ./devopsstack-nexus
     environment:
+      - VIRTUAL_HOST=nexus.localhost,nexus.blue-sharp.de
       - NEXUS_CONTEXT=nexus
     volumes:
       - nexus-data:/sonatype-work
@@ -63,6 +68,7 @@ services:
     links:
       - jira-db
     environment:
+      - VIRTUAL_HOST=jira.localhost,jira.blue-sharp.de
       - JIRA_DATABASE_URL=postgresql://jira@jira-db:5432/jira
       - JIRA_DB_PASSWORD=jira
       - CATALINA_OPTS= -Xms256m -Xmx1g
