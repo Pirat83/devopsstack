@@ -5,7 +5,6 @@ services:
     ports:
       - "80:80"
     links:
-      - jira
       - jenkins-master
       - sonar
       - nexus
@@ -63,29 +62,6 @@ services:
     volumes:
       - nexus-data:/sonatype-work
 
-  jira:
-    build: ./devopsstack-jira
-    links:
-      - jira-db
-    environment:
-      - VIRTUAL_HOST=jira.localhost,jira.blue-sharp.de
-      - JIRA_DATABASE_URL=postgresql://jira@jira-db:5432/jira
-      - JIRA_DB_PASSWORD=jira
-      - CATALINA_OPTS= -Xms256m -Xmx1g
-    volumes:
-      - jira-data:/var/atlassian/jira
-  jira-db:
-    image: blacklabelops/postgres
-    environment:
-      - POSTGRES_USER=jira
-      - POSTGRES_PASSWORD=jira
-      - POSTGRES_DB=jira
-      - POSTGRES_ENCODING=UNICODE
-      - POSTGRES_COLLATE=C
-      - POSTGRES_COLLATE_TYPE=C
-    volumes:
-      - jira-db-data:/var/lib/postgresql/data
-
 volumes:
   jenkins-data:
     external: false
@@ -94,8 +70,4 @@ volumes:
   sonar-db-data:
     external: false
   nexus-data:
-    external: false
-  jira-data:
-    external: false
-  jira-db-data:
     external: false
